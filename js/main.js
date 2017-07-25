@@ -6,25 +6,31 @@ const POINT_B = 'B';
 const OBSTACLE = 'X';
 var matrix = function(){
   let _matrix = [];
+  let _subscribers = [];
 
   function init() {
     _matrix = [];
 
-      for (let i = 0; i < NUM_ROWS; i++)
-      {
-        _matrix[i] = [];
-        for (let j = 0; j < NUM_COLS; j++)
-          _matrix[i][j] = EMPTY; 
-      }
+    for (let i = 0; i < NUM_ROWS; i++)
+    {
+      _matrix[i] = [];
+      for (let j = 0; j < NUM_COLS; j++)
+        _matrix[i][j] = EMPTY; 
+    }
   }
 
   function getValue(row, col) {
     return _matrix[row][col];
   }
 
+  function setValue(row, col, newValue) {
+    _matrix[row][col] = newValue;
+  }
+
   return {
     init,
-    getValue
+    getValue,
+    setValue
   }
 }();
 
@@ -52,9 +58,14 @@ function cellClickHandler(row, col)
   let value = matrix.getValue(row, col);
   let eventValue = getMarkerValue();
 
-  alert(eventValue);
+  if (value == eventValue)
+    matrix.setValue(row, col, EMPTY);
+  else
+    matrix.setValue(row, col, eventValue);
+
+  renderMatrix_First();
 }
-function renderMatrix()
+function renderMatrix_First()
 {
   let $maze = $getMazeElement();
   $maze.empty();
@@ -78,5 +89,5 @@ function renderMatrix()
 $(document).ready(function() {
 
   matrix.init();
-  renderMatrix();
+  renderMatrix_First();
 })
