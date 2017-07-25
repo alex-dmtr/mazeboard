@@ -200,6 +200,8 @@ function renderMatrix_First()
           $cell.addClass('path-head');
         }
       }
+      else
+        $cell.addClass('tile');
       $cell.click(() => {
         cellClickHandler(row, col);
       });
