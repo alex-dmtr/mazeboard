@@ -89,8 +89,16 @@ var matrix = function(){
     }
     distanceMatrix[A.row][A.col] = 0;
   
+    // The lower the better.
+    function getHeuristicScore(node) {
+      let score = Math.sqrt(  Math.pow(node.row-B.row, 2) + Math.pow(node.col-B.col, 2) );
+      score += distanceMatrix[node.row][node.col];
+      
+      return score;
+    }
     let queue = [A];
     while (queue.length > 0) {
+      queue.sort((a, b) => getHeuristicScore(a) - getHeuristicScore(b));
       let p = queue[0];
       queue.splice(0, 1);
 
@@ -205,7 +213,9 @@ function renderMatrix_First()
     {
       $maze.append("<td id="+getCellID(row, col)+"></td>");
       let $cell = $getCellElement(row, col);
-      $cell.text(matrix.getValue(row, col));
+      let value = matrix.getValue(row, col);
+      if (value != OBSTACLE)
+        $cell.text(value);
       let pathIndex = getNodePathIndex(row, col);
       if (pathIndex != -1)
       {
@@ -219,6 +229,8 @@ function renderMatrix_First()
           $cell.addClass('path-head');
         }
       }
+      else if (matrix.getValue(row, col) == OBSTACLE)
+        $cell.addClass('obstacle-tile')
       else
         $cell.addClass('tile');
       $cell.click(() => {

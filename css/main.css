@@ -25,13 +25,19 @@ body {
 }
 
 .path-head, .path {
-  background-color: darkslateblue;
-  color: whitesmoke;
+  background-color: rgba(144,238,144, 0.75);
+  /* color: whitesmoke; */
 }
 
 .tile {
   background-color: white;
 }
+
+.obstacle-tile {
+  background-color: black;
+  color: black;
+}
+
 .path {
   font-size: 55%;
 }
