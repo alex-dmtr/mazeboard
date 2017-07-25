@@ -3,14 +3,16 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
+body {
+  background-color: whitesmoke;
+}
 #maze {
   border-collapse: collapse;
   margin: 0 auto;
   text-align: center;
   vertical-align: middle;
   font-size: 40px;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 #maze, #maze th, #maze td {
@@ -22,7 +24,14 @@
   height: 60px;
 }
 
+.path-head, .path {
+  background-color: darkslateblue;
+  color: whitesmoke;
+}
 
+.path {
+  font-size: 55%;
+}
 
 
 

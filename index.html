@@ -20,14 +20,15 @@
         <![endif]-->
       
         <div class="container" id="main">
-          <table id="maze">
-
-          </table>
-
+          <div style="margin-top:10px">
           <label>Placing: </label>
           <input name="marker" type="radio" value="X" checked/> Obstacle
           <input name="marker" type="radio" value="A"/> Point A
           <input name="marker" type="radio" value="B"/> Point B
+
+          <button class='btn btn-primary' id='find-path'>Find path</button>
+</div>
+          <table id="maze"/>
         </div>
         <script src="js/vendor/jquery-3.2.1.min.js"></script>
         <script src="js/vendor/lodash.core.js"></script>
