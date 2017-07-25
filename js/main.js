@@ -1,6 +1,6 @@
 const NUM_ROWS = 10;
 const NUM_COLS = 10;
-const EMPTY = 'O';
+const EMPTY = ' ';
 const POINT_A = 'A';
 const POINT_B = 'B';
 const OBSTACLE = 'X';
@@ -39,9 +39,9 @@ function renderMatrix()
     $maze.append("<tr>");
     for (let col = 0; col < NUM_COLS; col++)
     {
-      $maze.append("<td id="+getCellID(row, col)+">X</td>");
+      $maze.append("<td id="+getCellID(row, col)+"></td>");
       let $cell = $getCellElement(row, col);
-      
+      $cell.text(matrix[row][col]);
       $cell.click(() => {
         alert(row+","+col);
       });

@@ -4,7 +4,22 @@
    Author's custom styles
    ========================================================================== */
 
+#maze {
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 40px;
+}
 
+#maze, #maze th, #maze td {
+  border: 1px solid black;
+}
+
+#maze td {
+  width: 60px;
+  height: 60px;
+}
 
 
 
