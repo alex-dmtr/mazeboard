@@ -30,6 +30,19 @@ function $getCellElement(row, col)
 {
   return $('#'+getCellID(row, col));
 }
+
+function getMarkerValue()
+{
+  return $("input[name=marker]:checked").val();
+}
+
+function cellClickHandler(row, col)
+{
+  let value = matrix[row][col];
+  let eventValue = getMarkerValue();
+
+  alert(eventValue);
+}
 function renderMatrix()
 {
   let $maze = $getMazeElement();
@@ -43,7 +56,7 @@ function renderMatrix()
       let $cell = $getCellElement(row, col);
       $cell.text(matrix[row][col]);
       $cell.click(() => {
-        alert(row+","+col);
+        cellClickHandler(row, col);
       });
     }
      
