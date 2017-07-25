@@ -22,6 +22,9 @@ var matrix = function(){
     _unique_positions = {};
     _unique_positions[POINT_A] = null;
     _unique_positions[POINT_B] = null;
+
+    setValue(Math.floor(Math.random()*NUM_ROWS), 1, POINT_A);
+    setValue(Math.floor(Math.random()*NUM_ROWS), NUM_COLS-2, POINT_B);
   }
 
   function getValue(row, col) {
@@ -145,6 +148,10 @@ function getMarkerValue()
   return $("input[name=marker]:checked").val();
 }
 
+function $getMazeInfoElement() {
+  return $("#maze-info");
+}
+
 function cellClickHandler(row, col)
 {
   path = [];
@@ -156,7 +163,19 @@ function cellClickHandler(row, col)
   else
     matrix.setValue(row, col, eventValue);
 
+  updatePath();
+}
+
+function updatePath() {
+ try {
+    path = matrix.getPath();
+  } 
+  catch (e) {
+    let $mazeInfo = $getMazeInfoElement();
+    $mazeInfo.text(e);
+  }
   renderMatrix_First();
+  
 }
 
 function findPathClickHandler() {
@@ -214,7 +233,8 @@ function renderMatrix_First()
 $(document).ready(function() {
 
   matrix.init();
-  renderMatrix_First();
-  let $findPathButton = $getFindPathButton();
-  $findPathButton.click(findPathClickHandler);
+  updatePath();
+  // renderMatrix_First();
+  // let $findPathButton = $getFindPathButton();
+  // $findPathButton.click(findPathClickHandler);
 })
