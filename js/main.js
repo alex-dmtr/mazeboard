@@ -4,19 +4,30 @@ const EMPTY = ' ';
 const POINT_A = 'A';
 const POINT_B = 'B';
 const OBSTACLE = 'X';
-var matrix = [];
+var matrix = function(){
+  let _matrix = [];
 
-function initMatrix()
-{
-  matrix = [];
+  function init() {
+    _matrix = [];
 
-  for (let i = 0; i < NUM_ROWS; i++)
-  {
-    matrix[i] = [];
-    for (let j = 0; j < NUM_COLS; j++)
-      matrix[i][j] = EMPTY; 
+      for (let i = 0; i < NUM_ROWS; i++)
+      {
+        _matrix[i] = [];
+        for (let j = 0; j < NUM_COLS; j++)
+          _matrix[i][j] = EMPTY; 
+      }
   }
-}
+
+  function getValue(row, col) {
+    return _matrix[row][col];
+  }
+
+  return {
+    init,
+    getValue
+  }
+}();
+
 
 function $getMazeElement()
 {
@@ -38,7 +49,7 @@ function getMarkerValue()
 
 function cellClickHandler(row, col)
 {
-  let value = matrix[row][col];
+  let value = matrix.getValue(row, col);
   let eventValue = getMarkerValue();
 
   alert(eventValue);
@@ -54,7 +65,7 @@ function renderMatrix()
     {
       $maze.append("<td id="+getCellID(row, col)+"></td>");
       let $cell = $getCellElement(row, col);
-      $cell.text(matrix[row][col]);
+      $cell.text(matrix.getValue(row, col));
       $cell.click(() => {
         cellClickHandler(row, col);
       });
@@ -66,6 +77,6 @@ function renderMatrix()
 
 $(document).ready(function() {
 
-  initMatrix();
+  matrix.init();
   renderMatrix();
 })
