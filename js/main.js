@@ -6,7 +6,7 @@ const POINT_B = 'B';
 const OBSTACLE = 'X';
 var matrix = function(){
   let _matrix = [];
-  let _subscribers = [];
+  let _unique_positions = {};
 
   function init() {
     _matrix = [];
@@ -17,6 +17,10 @@ var matrix = function(){
       for (let j = 0; j < NUM_COLS; j++)
         _matrix[i][j] = EMPTY; 
     }
+
+    _unique_positions = {};
+    _unique_positions[POINT_A] = null;
+    _unique_positions[POINT_B] = null;
   }
 
   function getValue(row, col) {
@@ -24,6 +28,21 @@ var matrix = function(){
   }
 
   function setValue(row, col, newValue) {
+    let oldValue = getValue(row, col);
+    if (newValue == 'A' || newValue == 'B')
+    {
+      if (_unique_positions[newValue])
+        setValue(_unique_positions[newValue].row, _unique_positions[newValue].col, EMPTY);
+      _unique_positions[newValue] = {
+        row,
+        col
+      }
+    }
+    if (_unique_positions[oldValue] && oldValue != newValue)
+    {
+      _unique_positions[oldValue] = null;
+    }
+
     _matrix[row][col] = newValue;
   }
 
